@@ -1,0 +1,8 @@
+bin/
+.idea/
+build/
+out/
+run/
+nbproject/
+.dep.inc
+*.stackdump

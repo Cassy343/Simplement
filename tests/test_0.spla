@@ -1,0 +1,118 @@
+%%E:\projects\Simplement\Simplement VM\spldefs.h
+
+%b 53 50 4c 58
+%i16 0
+# File tag
+%b 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+# Tagging parameters
+%fa 0 0
+
+## Constants Pool ##
+%ia 8  # Numeric cpool size
+%ia 0  # 8-bit entries
+%ia 0  # 16-bit entries
+%ia 2  # 32-bit entries
+%i32 9 10
+%ia 0  # 64-bit entries
+%id 0  # String entries
+
+## Dependencies ##
+%id 0
+
+## Resources ##
+%id 0
+
+## Functions ##
+%id 4
+
+%set foo 0
+%fa $foo_p
+%id 2
+%type int int
+%ia 8 8
+%type int
+%modifier 0
+%utf8 bl 1 foo
+
+%set bar_ctr 1
+%fa $bar_ctr_p
+%id 2
+%type double double
+%ia 16 16
+%type object:$bar
+%modifier 0
+%utf8 bl 1 bar_ctr
+
+%set bar_f1 2
+%fa $bar_f1_p
+%id 1
+%type object:$bar
+%ia 16 8
+%type double
+%modifier 0
+%utf8 bl 1 bar_f1
+
+%set bar_f2 3
+%fa $bar_f2_p
+%id 1
+%type object:$bar
+%ia 8 8
+%type void
+%modifier 0
+%utf8 bl 1 bar_f2
+
+## Classes ##
+%id 1
+
+%set bar 0
+%id 0
+%id 2
+%set bar_a 0
+%type double
+%modifier 0
+%utf8 bl 1 a
+%set bar_b 1
+%type double
+%modifier 0
+%utf8 bl 1 b
+%id 1
+%id 3
+%id $bar_ctr $bar_f1 $bar_f2
+%modifier 0
+%utf8 bl 1 bar
+
+# Start pointer
+%fa $main
+
+%setfa foo_p
+load32 0
+load32 32
+add32
+return32
+
+%setfa bar_ctr_p
+load64 0
+load64 64
+newobject $bar
+return64
+
+%setfa bar_f1_p
+load64 0
+getfield $bar_a
+load64 0
+getfield $bar_b
+fsub64
+return64
+
+%setfa bar_f2_p
+load64 0
+call $bar_f1
+putfield $bar_a
+returnvoid
+
+%setfa main
+loadconst32 0
+loadconst32 32
+add32
+callnative 0
+halt

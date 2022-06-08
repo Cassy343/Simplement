@@ -1,0 +1,49 @@
+%%config?E:\projects\Simplement\Simplement VM\spldefs.h|natives?E:\projects\Simplement\Simplement VM\splnative.c
+
+%b 53 50 4c 58
+%i16 0
+# File tag
+%b 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+# Tagging parameters
+%fa 0 0
+
+## Constants Pool ##
+%ia 8  # Numeric cpool size
+%ia 0  # 8-bit entries
+%ia 0  # 16-bit entries
+%ia 0  # 32-bit entries
+%ia 1  # 64-bit entries
+%f64 3.141592
+%id 0  # String entries
+
+## Dependencies ##
+%id 0
+
+## Resources ##
+%id 0
+
+## Functions ##
+%id 1
+
+%set foo 0
+%fa $foo_p
+%id 0
+%ia 64 0
+%type void
+%modifier 0
+%utf8 bl 1 foo
+
+## Classes ##
+%id 0
+
+# Start pointer
+%fa $main
+
+%setfa foo_p
+loadconst64 0
+callnative $nfunc?println_f64
+returnvoid
+
+%setfa main
+call $foo
+halt
